@@ -2,6 +2,8 @@
 *.d
 
 # Object files
+obj/*
+!obj/.keep
 *.o
 *.ko
 *.obj

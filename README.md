@@ -8,6 +8,7 @@ Compile all source code using Makefile.
 
 ```bash
 $ make
+$ ./simonedit.out
 ```
 
 ## Usage
