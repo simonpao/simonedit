@@ -1,9 +1,17 @@
 CC=gcc
-CFLAGS=-I.
-DEPS = globals.h doubleList.h refer.h user.h
+CFLAGS=-I$(IDIR)
+IDIR=inc
+ODIR=obj
+SDIR=src
 
-%.o: %.c $(DEPS)
+_DEPS = globals.h doubleList.h refer.h user.h
+DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
+
+_OBJ = main.o doubleList.o refer.o user.o
+OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
+
+$(ODIR)/%.o: $(SDIR)/%.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-simonedit: main.o doubleList.o refer.o user.o
-	$(CC) -o simonedit.out main.o doubleList.o refer.o user.o
+simonedit: $(OBJ)
+	$(CC) -o simonedit.out $^ $(CFLAGS) $(LIBS)

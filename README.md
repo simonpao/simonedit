@@ -1,4 +1,16 @@
+# Simon Edit
+
 Command line text editor.
+
+## Build
+
+Compile all source code using Makefile.
+
+```bash
+$ make
+```
+
+## Usage
 
 File extension must be *.simon
 
