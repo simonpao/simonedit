@@ -2,11 +2,13 @@
 /*                                                           */
 /*               Programmer: Simon Paonessa                  */
 /*                                                           */
-/*               Program: Polynomial Addition                */
+/*               Program: Line Editor                        */
 /*                                                           */
-/*               Date: 02/09/06                              */
+/*               Date: 2006-02-27                            */
 /*                                                           */
-/*               Globals.h                                   */
+/*               Updated: 2020-03-02                         */
+/*                                                           */
+/*               File: globals.h                             */
 /*                                                           */
 /*************************************************************/
 

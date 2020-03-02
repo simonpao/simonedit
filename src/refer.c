@@ -4,7 +4,9 @@
 /*                                                           */
 /*               Program: Line Editor                        */
 /*                                                           */
-/*               Date: 03/01/06                              */
+/*               Date: 2006-03-01                            */
+/*                                                           */
+/*               Updated: 2020-03-02                         */
 /*                                                           */
 /*               File: refer.c                               */
 /*                                                           */

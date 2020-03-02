@@ -4,7 +4,9 @@
 /*                                                           */
 /*               Program: Line Editor                        */
 /*                                                           */
-/*               Date: 02/27/06                              */
+/*               Date: 2006-02-27                            */
+/*                                                           */
+/*               Updated: 2020-03-02                         */
 /*                                                           */
 /*************************************************************/
 
@@ -33,7 +35,7 @@ void printerror(int errnum)
     "invalid command",
     "error deleting lines",
     "error moving lines",
-	"file does not exist"
+	  "file does not exist"
   };
 
   if (errnum < 0 || errnum >= MAXERROR)
@@ -81,7 +83,7 @@ int main(int argc, char *argv[])
         {
         case '\n':
           break;
-		case 'P':
+		    case 'P':
           rc = printlines(&buffer[1], &linelist, &currentline);
           if(rc) printerror(rc);
           break;
