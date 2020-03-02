@@ -178,6 +178,7 @@ extern int movelines(char *linespec, doubleList *pHead, doubleList *pCurrent)
  *    P1,10 - print lines 1 through 10
  *    P1,$  - print lines 1 through last
  *    P.,10 - print current line through line 10
+ *    P^,$  - print first line through last
  */
 extern int printlines(char *linespec, doubleList *pHead, doubleList *pCurrent)
 {

@@ -56,6 +56,12 @@ extern int parseNumber(char *numberspec, doubleList head, doubleList current, do
       *pNode = current;
       numberspec++;
     }
+  else if (*numberspec == '^')
+    {
+      *pNode = nthDoubleNode(head, 0);
+      if(*pNode == NULL) return E_LINES;
+      numberspec++;
+    }
   else if (*numberspec == '$')
     {
       *pNode = nthDoubleNode(head, -1);
