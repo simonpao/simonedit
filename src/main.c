@@ -19,7 +19,7 @@
  * E_IO     1
  * E_SPACE  2
  * E_LINES  3
- *_BADCMD   4
+ * BADCMD   4
  * E_DELETE 5
  * E_MOVE   6
  * E_FILE   7
@@ -55,8 +55,12 @@ int main(int argc, char *argv[])
 
   initDoubleList(&linelist);
 
-  printf("Enter the name of the file to edit: ");
-  scanf("%s", filename);
+  if( argc == 1 ) {
+    printf("Enter the name of the file to edit: ");
+    scanf("%s", filename);
+  } else {
+    strcpy( filename, argv[1] ) ;
+  }
   strcat(filename, ".simon");
 
   if((rc = readfile(filename, &linelist)) != 0)

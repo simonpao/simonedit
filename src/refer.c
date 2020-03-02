@@ -69,7 +69,8 @@ extern int parseNumber(char *numberspec, doubleList head, doubleList current, do
       nodenumber = atoi(numberbuffer);
       *pNode = nthDoubleNode(head, nodenumber);
       if(*pNode == NULL) return E_LINES;
-    } else return E_LINES;
+    }
+  else return E_LINES;
 
   if(*numberspec == '+')
     {

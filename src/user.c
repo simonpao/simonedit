@@ -168,6 +168,15 @@ extern int movelines(char *linespec, doubleList *pHead, doubleList *pCurrent)
   return 0;
 }
 
+
+/**
+ * Print file lines:
+ *    P     - print the active line
+ *    P1    - print line 1
+ *    P1,10 - print lines 1 through 10
+ *    P1,$  - print lines 1 through last
+ *    P.,10 - print current line through line 10
+ */
 extern int printlines(char *linespec, doubleList *pHead, doubleList *pCurrent)
 {
   doubleList startnode, endnode;
@@ -191,6 +200,12 @@ extern int printlines(char *linespec, doubleList *pHead, doubleList *pCurrent)
   return 0;
 }
 
+/**
+ * Format the line numbers to three digits
+ * 1   = 001
+ * 10  = 010
+ * 100 = 100
+ */
 char * formatLineNumber(int number)
 {
     char *buf = malloc(5);
