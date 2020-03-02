@@ -13,6 +13,17 @@
 #include <string.h>
 #include "user.h"
 
+/**
+ * Handles printing of errors, Indices of specific error message defined in globals.h
+ *
+ * E_IO     1
+ * E_SPACE  2
+ * E_LINES  3
+ *_BADCMD   4
+ * E_DELETE 5
+ * E_MOVE   6
+ * E_FILE   7
+ */
 void printerror(int errnum)
 {
   static char *errmsg[] = {
@@ -21,6 +32,7 @@ void printerror(int errnum)
     "invalid line specification",
     "invalid command",
     "error deleting lines",
+    "error moving lines",
 	"file does not exist"
   };
 
@@ -31,6 +43,8 @@ void printerror(int errnum)
     }
   printf("%s\n", errmsg[errnum-1]);
 }
+
+
 int main(int argc, char *argv[])
 {
   char filename[BUFSIZ];
@@ -57,7 +71,7 @@ int main(int argc, char *argv[])
   exitFlag = FALSE;
   while (exitFlag == FALSE)
     {
-      printf("cmd: ");
+      printf("%d, cmd: ", doubleNodeNumber( currentline ));
       scanf("%s", buffer);
       switch(toupper(buffer[0]))
         {

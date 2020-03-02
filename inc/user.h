@@ -26,5 +26,6 @@ extern int insertlines(char *linespec, doubleList *pHead, doubleList *pCurrent);
 extern int deletelines(char *linespec, doubleList *pHead, doubleList *pCurrent);
 extern int movelines(char *linespec, doubleList *pHead, doubleList *pCurrent);
 extern int printlines(char *linespec, doubleList *pHead, doubleList *pCurrent);
+char * formatLineNumber(int number);
 
 #endif

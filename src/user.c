@@ -183,10 +183,26 @@ extern int printlines(char *linespec, doubleList *pHead, doubleList *pCurrent)
   count = (endnumber - startnumber) *direction + 1;
   while(count-- > 0)
     {
-      printf("%d  %s", startnumber, DATA(startnode));
+      printf("%s:  %s", formatLineNumber(startnumber), DATA(startnode));
       startnumber += direction;
       startnode = nthRelativeDoubleNode(startnode, direction);
     }
   *pCurrent = endnode;
   return 0;
+}
+
+char * formatLineNumber(int number)
+{
+    char *buf = malloc(5);
+
+    if( number < 10 ) {
+        snprintf(buf, 5, "00%d", number);
+        return buf ;
+    }
+    if( number < 100 ) {
+        snprintf(buf, 5, "0%d", number);
+        return buf ;
+    }
+    snprintf(buf, 5, "%d", number);
+    return buf ;
 }
