@@ -105,6 +105,12 @@ List of known issues to be addressed
 ### Deleting lines
 
 - Deleting all lines and then printing results in segmentation fault
+- Deleting last line (which loops active line to line 1) and then printing from current line results in segmentation fault
+    ```bash
+    16, cmd: d16
+    1, cmd: p.,$
+    Segmentation fault (core dumped)
+    ```
 
 ### Inserting lines
 
