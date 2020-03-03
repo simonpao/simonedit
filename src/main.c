@@ -57,13 +57,23 @@ int main(int argc, char *argv[])
 
   initDoubleList(&linelist);
 
+  // If filename supplied at command line, use that
+  //    otherwise, prompt user for filename
   if( argc == 1 ) {
     printf("Enter the name of the file to edit: ");
     scanf("%s", filename);
   } else {
     strcpy( filename, argv[1] ) ;
   }
-  strcat(filename, ".simon");
+
+  // Determine if ".simon" should be added to end of filename
+  char * testLoc = strrchr(filename, ".") ;
+  if( testLoc ) {
+    if(strcmp(".simon", testLoc) != 0)
+      strcat(filename, ".simon");
+  } else {
+    strcat(filename, ".simon");
+  }
 
   if((rc = readfile(filename, &linelist)) != 0)
     {
