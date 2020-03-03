@@ -40,7 +40,7 @@ Available commands are:
 - `P` - Print line
 - `G` - Change the active line (goto)
 - `D` - Delete line
-- `I` - Insert lines, `.` to end
+- `I` - Insert lines, newline to end
 - `M` - Move line
 - `W` - Save changes
 - `Q` - Quit (Will be prompted to save if there are changes)
@@ -97,6 +97,25 @@ cmd:  I      # Insert before active line
 ## Known Issues
 
 List of known issues to be addressed
+
+### Printing lines
+
+- Printing backwards shows same data for all lines printed
+    ```bash
+    5, cmd: p$,^
+    005:  line 5
+    004:  line 5
+    003:  line 5
+    002:  line 5
+    001:  line 5
+    1, cmd: p^,$
+    001:  line 1
+    002:  line 2
+    003:  line 3
+    004:  line 4
+    005:  line 5
+    5, cmd:
+    ```
 
 ### Moving lines
 
