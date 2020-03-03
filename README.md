@@ -30,7 +30,7 @@ cmd:  P^,$
 or simply:
 
 ```bash
-$ ./simonedit.out text/text
+$ ./simonedit.out text/text.simon
 ```
 
 ### Editing commands

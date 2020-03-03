@@ -67,10 +67,11 @@ int main(int argc, char *argv[])
   }
 
   // Determine if ".simon" should be added to end of filename
-  char * testLoc = strrchr(filename, ".") ;
+  char * testLoc = strrchr(filename, '.') ;
   if( testLoc ) {
-    if(strcmp(".simon", testLoc) != 0)
+    if(strcmp(".simon", testLoc) != 0) {
       strcat(filename, ".simon");
+    }
   } else {
     strcat(filename, ".simon");
   }
