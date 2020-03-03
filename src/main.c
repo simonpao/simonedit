@@ -83,6 +83,10 @@ int main(int argc, char *argv[])
         {
         case '\n':
           break;
+        case 'G':
+          rc = gotoLine(&buffer[1], &linelist, &currentline);
+          if(rc) printerror(rc);
+          break;
 		    case 'P':
           rc = printlines(&buffer[1], &linelist, &currentline);
           if(rc) printerror(rc);

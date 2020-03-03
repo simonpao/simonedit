@@ -20,6 +20,9 @@
 
 static FILE *outputfd;
 
+/**
+ * Read the input file into a doubly linked list
+ */
 extern int readfile(char *filename, doubleList *pL)
 {
   char buffer[BUFSIZ];
@@ -36,6 +39,9 @@ extern int readfile(char *filename, doubleList *pL)
   return 0;
 }
 
+/**
+ * Write the doubly linked list to a newline separated file
+ */
 extern int writefile(char *filename, doubleList *pL)
 {
   status rc;
@@ -56,11 +62,16 @@ extern status writeline(char *s)
   return OK;
 }
 
+/**
+ * Insert line(s)
+ *    I1 - Insert before line 1
+ *    I  - Insert before active line
+ */
 extern int insertlines(char *linespec, doubleList *pHead, doubleList *pCurrent)
 {
   doubleList newdata, startnode, endnode, lastnode;
   status rc;
-  int cmp, parseerror;
+  int cmp = 1, parseerror;
   char buffer[BUFSIZ];
 
   if (emptyDoubleList(*pHead) == TRUE)
@@ -76,17 +87,18 @@ extern int insertlines(char *linespec, doubleList *pHead, doubleList *pCurrent)
       if(startnode != endnode) return E_LINES;
     }
   initDoubleList(&newdata);
-  do
+  fgets(buffer, BUFSIZ, stdin); // Read the initial newline and discard
+  while (cmp != 0)
     {
-      printf("I>");
+      printf(" > ");
       fgets(buffer, BUFSIZ, stdin);
-      cmp = strcmp(buffer, ".\n");
+      cmp = strcmp(buffer, "\n");
       if(cmp != 0 && strlen(buffer) > 1)
         {
           rc = stringDoubleAppend(&newdata, buffer);
           if(rc == ERROR) return E_SPACE;
         }
-    } while (cmp != 0);
+    } 
   if(emptyDoubleList(newdata) == TRUE) return 0;
 
   if(startnode == NULL)
@@ -109,6 +121,16 @@ extern int insertlines(char *linespec, doubleList *pHead, doubleList *pCurrent)
   return 0;
 }
 
+/**
+ * Delete line(s)
+ *    D1   - Delete line 1
+ *    D1,5 - Delete lines 1 through 5
+ *    D^,5 - Delete first through fifth lines
+ *    D5,$ - Delete fifth through last lines
+ *    D.   - Delete active line
+ *    D.+1 - Delete line after active line
+ *    D^,$ - Delete all lines
+ */
 extern int deletelines(char *linespec, doubleList *pHead, doubleList *pCurrent)
 {
   doubleList startnode, endnode, tmplist;
@@ -137,6 +159,13 @@ extern int deletelines(char *linespec, doubleList *pHead, doubleList *pCurrent)
   return 0;
 }
 
+/**
+ * Move line(s) to before active line
+ *    M1   - Move line 1 to before active line 
+ *    M1,5 - Move lines 1 through 5 to before active line
+ *    M^,5 - Move first through fifth line to before active line
+ *    M5,$ - Move fifth through last line to before active line
+ */
 extern int movelines(char *linespec, doubleList *pHead, doubleList *pCurrent)
 {
   doubleList startnode, endnode;
@@ -170,6 +199,25 @@ extern int movelines(char *linespec, doubleList *pHead, doubleList *pCurrent)
   return 0;
 }
 
+/**
+ * Change the active line (goto):
+ *    G1 - Goto line 1
+ *    G$ - Goto last line
+ *    G^ - Goto first line
+ */
+extern int gotoLine(char *linespec, doubleList *pHead, doubleList *pCurrent)
+{
+  doubleList startnode, endnode;
+  int startnumber, rc;
+
+  rc = parseLinespec(linespec, *pHead, *pCurrent, &startnode, &endnode);
+  if(rc) return rc;
+
+  startnumber = doubleNodeNumber(startnode);
+  printf("%s:  %s", formatLineNumber(startnumber), DATA(startnode));
+  *pCurrent = startnode;
+  return 0;
+}
 
 /**
  * Print file lines:
