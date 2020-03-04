@@ -210,11 +210,16 @@ extern int gotoLine(char *linespec, doubleList *pHead, doubleList *pCurrent)
   doubleList startnode, endnode;
   int startnumber, rc;
 
+  if( emptyDoubleList(*pHead) ) {
+    printf("File is empty.\n") ;
+    return 0;
+  }
+
   rc = parseLinespec(linespec, *pHead, *pCurrent, &startnode, &endnode);
   if(rc) return rc;
 
   startnumber = doubleNodeNumber(startnode);
-  printf("%s:  %s", formatLineNumber(startnumber), DATA(startnode));
+  printf("%s:  %s", formatLineNumber(startnumber), (char *) DATA(startnode));
   *pCurrent = startnode;
   return 0;
 }
@@ -234,6 +239,11 @@ extern int printlines(char *linespec, doubleList *pHead, doubleList *pCurrent)
   int startnumber, endnumber, count, direction;
   int rc;
 
+  if( emptyDoubleList(*pHead) ) {
+    printf("File is empty.\n") ;
+    return 0;
+  }
+
   rc = parseLinespec(linespec, *pHead, *pCurrent, &startnode, &endnode);
   if(rc) return rc;
 
@@ -243,7 +253,7 @@ extern int printlines(char *linespec, doubleList *pHead, doubleList *pCurrent)
   count = (endnumber - startnumber) *direction + 1;
   while(count-- > 0)
     {
-      printf("%s:  %s", formatLineNumber(startnumber), DATA(startnode));
+      printf("%s:  %s", formatLineNumber(startnumber), (char *) DATA(startnode));
       startnumber += direction;
       startnode = nthRelativeDoubleNode(startnode, direction);
     }
