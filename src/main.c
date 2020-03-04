@@ -38,7 +38,7 @@ void printerror(int errnum)
 	  "file does not exist"
   };
 
-  if (errnum < 0 || errnum >= MAXERROR)
+  if (errnum < 1 || errnum > MAXERROR)
     {
       printf("System Error. Invalid error number: %d\n", errnum);
       return;
@@ -76,8 +76,10 @@ int main(int argc, char *argv[])
     strcat(filename, ".simon");
   }
 
+  // Read the file into a doubly linked list
   if((rc = readfile(filename, &linelist)) != 0)
     {
+      // If the file does not exist, exit
       printerror(rc);
       exit(1);
     }
@@ -118,7 +120,18 @@ int main(int argc, char *argv[])
           if(rc) printerror(rc);
           break;
         case 'W':
-		  if(buffer[1] != '\0') { strcpy(filename, &buffer[1]); strcat(filename, ".simon");}
+		      if(buffer[1] != '\0') { 
+            strcpy(filename, &buffer[1]); 
+            // Determine if ".simon" should be added to end of filename
+            char * testLoc = strrchr(filename, '.') ;
+            if( testLoc ) {
+              if(strcmp(".simon", testLoc) != 0) {
+                strcat(filename, ".simon");
+              }
+            } else {
+              strcat(filename, ".simon");
+            }
+          }
           rc = writefile(filename, &linelist);
           if(rc != 0) printerror(rc);
           else printf("%d lines written\n", doubleLength(linelist));

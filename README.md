@@ -93,6 +93,21 @@ cmd:  I1     # Insert before line 1
 cmd:  I      # Insert before active line
 ```
 
+#### Save changes
+
+```bash
+cmd:  W      # Save changes to current file
+cmd:  Wtext2 # Save changes to a file named 'text2.simon'
+```
+
+#### Quit
+
+```bash
+cmd:  Q      # Close file without saving13, cmd: q
+File modified. Enter W to save, Q to discard.
+cmd:  Q
+```
+
 
 ## Known Issues
 

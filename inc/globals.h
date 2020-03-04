@@ -22,7 +22,7 @@
 #define E_DELETE 5
 #define E_MOVE   6
 #define E_FILE   7
-#define MAXERROR 8
+#define MAXERROR 7
 
 #define DATA( L ) (( L ) -> datapointer )
 #define NEXT( L ) (( L ) -> next )
