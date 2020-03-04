@@ -71,7 +71,7 @@ extern int insertlines(char *linespec, doubleList *pHead, doubleList *pCurrent)
 {
   doubleList newdata, startnode, endnode, lastnode;
   status rc;
-  int cmp = 1, parseerror;
+  int cmp = 1, parseerror, insertlinenumber;
   char buffer[BUFSIZ];
 
   if (emptyDoubleList(*pHead) == TRUE)
@@ -87,10 +87,12 @@ extern int insertlines(char *linespec, doubleList *pHead, doubleList *pCurrent)
       if(startnode != endnode) return E_LINES;
     }
   initDoubleList(&newdata);
+  insertlinenumber = doubleNodeNumber(startnode);
+  if(insertlinenumber < 1) insertlinenumber = 1;
   fgets(buffer, BUFSIZ, stdin); // Read the initial newline and discard
   while (cmp != 0)
     {
-      printf(" > ");
+      printf("%s> ", formatLineNumber(insertlinenumber++));
       fgets(buffer, BUFSIZ, stdin);
       cmp = strcmp(buffer, "\n");
       if(cmp != 0 && strlen(buffer) > 1)
