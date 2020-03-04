@@ -105,19 +105,19 @@ int main(int argc, char *argv[])
           if(rc) printerror(rc);
           break;
         case 'D':
-          fileEdited = TRUE;
           rc = deletelines(&buffer[1], &linelist, &currentline);
           if(rc) printerror(rc);
+          else fileEdited = TRUE;
           break;
         case 'I':
-          fileEdited = TRUE;
           rc = insertlines(&buffer[1], &linelist, &currentline);
           if(rc) printerror(rc);
+          else fileEdited = TRUE;
           break;
         case 'M':
-          fileEdited = TRUE;
           rc = movelines(&buffer[1], &linelist, &currentline);
           if(rc) printerror(rc);
+          else fileEdited = TRUE;
           break;
         case 'W':
 		      if(buffer[1] != '\0') { 
@@ -134,8 +134,10 @@ int main(int argc, char *argv[])
           }
           rc = writefile(filename, &linelist);
           if(rc != 0) printerror(rc);
-          else printf("%d lines written\n", doubleLength(linelist));
-          fileEdited = FALSE;
+          else {
+            printf("%d lines written\n", doubleLength(linelist));
+            fileEdited = FALSE;
+          }
           break;
         case 'Q':
           if(fileEdited == TRUE)
