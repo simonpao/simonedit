@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "user.h"
 
 /**
@@ -29,13 +30,14 @@
 void printerror(int errnum)
 {
   static char *errmsg[] = {
-    "io error",
-    "out of memory space",
-    "invalid line specification",
-    "invalid command",
-    "error deleting lines",
-    "error moving lines",
-	  "file does not exist"
+    "An error occured while attempting to write to the file.",
+    "The computer is too low on resources to continue.",
+    "Invalid line number specified. Identify lines using 0-9, '^', '$', or '.'.",
+    "Invalid command. Valid commands are P, G, D, I, M, W, and Q.",
+    "An error occured while attempting to delete the specified lines.",
+    "An error occured while attempting to move the specified lines.",
+	  "Requested file does not exist.",
+    "Specified line number is greater than the maximum line number in the file."
   };
 
   if (errnum < 1 || errnum > MAXERROR)
@@ -85,7 +87,7 @@ int main(int argc, char *argv[])
     }
 
   printf("%d lines read.\n", doubleLength(linelist));
-  currentline = nthDoubleNode(linelist, -1);
+  currentline = nthDoubleNode(linelist, 1);
   fileEdited = FALSE;
   exitFlag = FALSE;
   while (exitFlag == FALSE)

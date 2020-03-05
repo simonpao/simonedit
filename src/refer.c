@@ -15,6 +15,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "refer.h"
 #include "globals.h"
 
@@ -51,24 +52,25 @@ extern int parseNumber(char *numberspec, doubleList head, doubleList current, do
   int nodenumber;
   int direction;
 
-  if(*numberspec == '.')
+  // Determine which line number is being referenced in the command
+  if(*numberspec == '.') // the active line
     {
       *pNode = current;
       numberspec++;
     }
-  else if (*numberspec == '^')
+  else if (*numberspec == '^') // the first line
     {
       *pNode = nthDoubleNode(head, 0);
       if(*pNode == NULL) return E_LINES;
       numberspec++;
     }
-  else if (*numberspec == '$')
+  else if (*numberspec == '$') // the last line
     {
       *pNode = nthDoubleNode(head, -1);
       if(*pNode == NULL) return E_LINES;
       numberspec++;
     }
-  else if(isdigit(*numberspec))
+  else if(isdigit(*numberspec)) // a specific line number
     {
       pNum = numberbuffer;
       while(isdigit(*numberspec))
@@ -76,22 +78,25 @@ extern int parseNumber(char *numberspec, doubleList head, doubleList current, do
       *pNum = '\0';
       nodenumber = atoi(numberbuffer);
       *pNode = nthDoubleNode(head, nodenumber);
-      if(*pNode == NULL) return E_LINES;
+      if(*pNode == NULL) return E_OVERFLOW;
     }
   else return E_LINES;
 
-  if(*numberspec == '+')
+  // Determine if line is relative (+/-) to the specified line
+  if(*numberspec == '+') // line(s) after specified line
     {
       direction = 1;
       numberspec++;
     }
-  else if(*numberspec == '-')
+  else if(*numberspec == '-') // line(s) before specified line
     {
       direction = -1;
       numberspec++;
     }
-  else direction = 0;
+  else direction = 0; // not relative
 
+  // If relative, need to determine the number to which the requested
+  //    line is relative to the specified line
   if(isdigit(*numberspec) && direction != 0)
     {
       pNum = numberbuffer;
@@ -103,6 +108,7 @@ extern int parseNumber(char *numberspec, doubleList head, doubleList current, do
       if(pNode == NULL) return E_LINES;
       direction = 0;
     }
+  // If not relative, then no other input is allowed
   if(direction == 0 && (*numberspec == '\0' || *numberspec == ','))
     return 0;
   else return E_LINES;
