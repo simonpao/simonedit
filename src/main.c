@@ -19,13 +19,14 @@
 /**
  * Handles printing of errors, Indices of specific error message defined in globals.h
  *
- * E_IO     1
- * E_SPACE  2
- * E_LINES  3
- * BADCMD   4
- * E_DELETE 5
- * E_MOVE   6
- * E_FILE   7
+ * E_IO       1
+ * E_SPACE    2
+ * E_LINES    3
+ * E_BADCMD   4
+ * E_DELETE   5
+ * E_MOVE     6
+ * E_FILE     7
+ * E_OVERFLOW 8
  */
 void printerror(int errnum)
 {
@@ -62,31 +63,40 @@ int main(int argc, char *argv[])
   // If filename supplied at command line, use that
   //    otherwise, prompt user for filename
   if( argc == 1 ) {
-    printf("Enter the name of the file to edit: ");
+    printf("Enter the name of the file to edit, or 'new': ");
     scanf("%s", filename);
   } else {
     strcpy( filename, argv[1] ) ;
   }
 
-  // Determine if ".simon" should be added to end of filename
-  char * testLoc = strrchr(filename, '.') ;
-  if( testLoc ) {
-    if(strcmp(".simon", testLoc) != 0) {
+  if(strcmp("new", filename)) {
+    // Determine if ".simon" should be added to end of filename
+    char * testLoc = strrchr(filename, '.') ;
+    if( testLoc ) {
+      if(strcmp(".simon", testLoc) != 0) {
+        strcat(filename, ".simon");
+      }
+    } else {
       strcat(filename, ".simon");
     }
-  } else {
-    strcat(filename, ".simon");
-  }
 
-  // Read the file into a doubly linked list
-  if((rc = readfile(filename, &linelist)) != 0)
-    {
-      // If the file does not exist, exit
-      printerror(rc);
+    // Read the file into a doubly linked list
+    if((rc = readfile(filename, &linelist)) != 0)
+      {
+        // If the file does not exist, exit
+        printerror(rc);
+        exit(1);
+      }
+
+    printf("%d lines read.\n", doubleLength(linelist));
+  } else {
+    rc = doubleAppend(&linelist, "\n");
+    if(rc == ERROR) {
+      printf("Failed to initialize new file.\n");
       exit(1);
     }
+  }
 
-  printf("%d lines read.\n", doubleLength(linelist));
   currentline = nthDoubleNode(linelist, 1);
   fileEdited = FALSE;
   exitFlag = FALSE;

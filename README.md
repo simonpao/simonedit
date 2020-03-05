@@ -146,6 +146,12 @@ List of known issues to be addressed
     Segmentation fault (core dumped)
     ```
 - Deleting all lines does not change the active line
+- Deleting the last line remaining in the file results in error
+    ```bash
+    1, cmd: d.
+    free(): invalid pointer
+    Aborted (core dumped)
+    ```
 
 ### Inserting lines
 

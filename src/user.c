@@ -141,6 +141,11 @@ extern int deletelines(char *linespec, doubleList *pHead, doubleList *pCurrent)
   int startnumber, endnumber;
   int rc;
 
+  if( emptyDoubleList(*pHead) ) {
+    printf("File is empty.\n") ;
+    return 0;
+  }
+
   rc = parseLinespec(linespec, *pHead, *pCurrent, &startnode, &endnode);
   if(rc) return rc;
 
@@ -176,6 +181,11 @@ extern int movelines(char *linespec, doubleList *pHead, doubleList *pCurrent)
   int startnumber, endnumber;
   int rc, currentnumber;
   int tmp;
+
+  if( emptyDoubleList(*pHead) ) {
+    printf("File is empty.\n") ;
+    return 0;
+  }
 
   rc = parseLinespec(linespec, *pHead, *pCurrent, &startnode, &endnode);
   if(rc) return rc;
