@@ -148,7 +148,9 @@ extern int doubleLength(doubleList L)
 {
   doubleList tmplist;
   int length = 1;
-
+  
+  if( emptyDoubleList(L) ) return 0 ;
+  
   for(tmplist = L; NEXT(tmplist) != NULL; tmplist = NEXT(tmplist))
     length++;
 

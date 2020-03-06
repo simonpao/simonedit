@@ -1,6 +1,6 @@
 # Simon Edit
 
-Command line text editor.
+Command line text editor build using C. Reads every line of a file into a doubly linked list for in memory editing. Saves to file as newline (`\n`) separated lines of text. (`P`)rint, (`M`)ove, (`D`)elete, and (`I`)nsert commands are available for editing. 
 
 ## Build
 
@@ -13,7 +13,7 @@ $ ./simonedit.out
 
 ## Usage
 
-File extension must be *.simon. To read a file named text.simon in a directory text, enter the following:
+File extension must be *.simon. To read a file named `text.simon` in a directory `text`, enter the following:
 
 ```bash
 $ ./simonedit.out 
@@ -139,18 +139,28 @@ List of known issues to be addressed
 ### Deleting lines
 
 - ~~Deleting all lines and then printing results in segmentation fault~~
-- Deleting last line (which loops active line to line 1) and then printing from current line results in segmentation fault
+- ~~Deleting last line (which loops active line to line 1) and then printing from current line results in segmentation fault~~
     ```bash
     16, cmd: d16
     1, cmd: p.,$
     Segmentation fault (core dumped)
     ```
 - Deleting all lines does not change the active line
-- Deleting the last line remaining in the file results in error
+- ~~Deleting the last line remaining in the file results in error~~
     ```bash
     1, cmd: d.
     free(): invalid pointer
     Aborted (core dumped)
+    ```
+- Deleting last line then printing current line does not print the line content
+    ```bash
+    $ ./simonedit.out text/text
+    5 lines read.
+    1, cmd: g5
+    005:  i know it's pretty
+    5, cmd: d.
+    1, cmd: p.
+    001:  1, cmd:
     ```
 
 ### Inserting lines

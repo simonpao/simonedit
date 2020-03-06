@@ -89,12 +89,6 @@ int main(int argc, char *argv[])
       }
 
     printf("%d lines read.\n", doubleLength(linelist));
-  } else {
-    rc = doubleAppend(&linelist, "\n");
-    if(rc == ERROR) {
-      printf("Failed to initialize new file.\n");
-      exit(1);
-    }
   }
 
   currentline = nthDoubleNode(linelist, 1);
