@@ -113,22 +113,31 @@ cmd:  Q
 
 List of known issues to be addressed
 
+### General
+
+- The minus (-) operator does not work for selecting relative lines
+    ```bash
+    5, cmd: g4
+    004:  i hope you like it
+    4, cmd: p.-1
+    004:  i hope you like it
+    4, cmd: p.+1
+    005:  i know it's pretty
+    5, cmd:
+    ```
+
 ### Printing lines
 
 - Printing backwards shows same data for all lines printed
     ```bash
     5, cmd: p$,^
-    005:  line 5
-    004:  line 5
-    003:  line 5
-    002:  line 5
-    001:  line 5
+    003:  line 3
+    002:  line 3
+    001:  line 3
     1, cmd: p^,$
     001:  line 1
     002:  line 2
     003:  line 3
-    004:  line 4
-    005:  line 5
     5, cmd:
     ```
 
@@ -154,10 +163,6 @@ List of known issues to be addressed
     ```
 - Deleting last line then printing current line does not print the line content
     ```bash
-    $ ./simonedit.out text/text
-    5 lines read.
-    1, cmd: g5
-    005:  i know it's pretty
     5, cmd: d.
     1, cmd: p.
     001:  1, cmd:
