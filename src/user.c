@@ -213,6 +213,36 @@ extern int movelines(char *linespec, doubleList *pHead, doubleList *pCurrent)
 }
 
 /**
+ * Count the total number of lines:
+ *    C^,$ - Count number of lines in the file
+ */
+extern int countLines(char *linespec, doubleList *pHead, doubleList *pCurrent)
+{
+  doubleList startnode, endnode;
+  int count, rc;
+
+  rc = parseLinespec(linespec, *pHead, *pCurrent, &startnode, &endnode);
+  if(rc) return rc;
+
+  if( emptyDoubleList(*pHead) ) 
+    {
+      printf("0 lines.\n") ;
+    } 
+  else 
+    {
+      count  = doubleNodeNumber( endnode   );
+      count -= doubleNodeNumber( startnode )-1;
+
+      if(count == 1)
+        printf("1 line.\n") ;
+      else
+        printf("%d lines.\n", count);
+    }
+
+  return 0;
+}
+
+/**
  * Change the active line (goto):
  *    G1 - Goto line 1
  *    G$ - Goto last line

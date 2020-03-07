@@ -48,12 +48,14 @@ Available commands are:
 #### Print line(s)
 
 ```bash
+cmd:  P      # Prints all lines of the file (same as P^,$)
 cmd:  P1     # Prints line 1
 cmd:  P1,10  # Prints lines 1 through 10
 cmd:  P1,$   # Prints lines from 1 to end of file
 cmd:  P^,10  # Prints lines from beginning to line 10
 cmd:  P.,10  # Prints from active line to line 10
 cmd:  P.+1   # Print line after active line
+cmd:  P.-1   # Print line before active line
 ```
 
 #### Goto line
@@ -63,6 +65,7 @@ cmd:  G1     # Go to line 1
 cmd:  G$     # Go to last line
 cmd:  G^     # Go to first line
 cmd:  G.+1   # Go to line after active line
+cmd:  G.-1   # Go to line before active line
 ```
 
 #### Move line
@@ -91,6 +94,13 @@ cmd:  D^,$   # Delete all lines
 ```bash
 cmd:  I1     # Insert before line 1
 cmd:  I      # Insert before active line
+```
+
+#### Count lines
+
+```bash
+cmd:  C      # Count the number of lines in the file (same as C^,$)
+cmd:  C.,$   # Count the number of lines from the current line to the last line (inclusive)
 ```
 
 #### Save changes
