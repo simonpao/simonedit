@@ -116,51 +116,36 @@ List of known issues to be addressed
 ### General
 
 - ~~The minus (-) operator does not work for selecting relative lines~~
-    ```bash
-    5, cmd: g4
-    004:  i hope you like it
-    4, cmd: p.-1
-    004:  i hope you like it
-    4, cmd: p.+1
-    005:  i know it's pretty
-    5, cmd:
-    ```
 
 ### Printing lines
 
 - ~~Printing backwards shows same data for all lines printed~~
-    ```bash
-    5, cmd: p$,^
-    003:  line 3
-    002:  line 3
-    001:  line 3
-    1, cmd: p^,$
-    001:  line 1
-    002:  line 2
-    003:  line 3
-    5, cmd:
-    ```
 
 ### Moving lines
 
 - Moving lines when first line is active deletes the moved line(s) and does not reset line numbers
+    ```bash
+    1, cmd: m3
+    2, cmd: p^,$
+    002:  line 1
+    003:  line 2
+    004:  line 4
+    005:  line 5
+    5, cmd:
+    ```
 
 ### Deleting lines
 
 - ~~Deleting all lines and then printing results in segmentation fault~~
 - ~~Deleting last line (which loops active line to line 1) and then printing from current line results in segmentation fault~~
-    ```bash
-    16, cmd: d16
-    1, cmd: p.,$
-    Segmentation fault (core dumped)
-    ```
 - Deleting all lines does not change the active line
-- ~~Deleting the last line remaining in the file results in error~~
     ```bash
-    1, cmd: d.
-    free(): invalid pointer
-    Aborted (core dumped)
+    5, cmd: d^,$
+    5, cmd: p
+    File is empty.
+    5, cmd: 
     ```
+- ~~Deleting the last line remaining in the file results in error~~
 - Deleting last line then printing current line does not print the line content
     ```bash
     5, cmd: d.
@@ -170,4 +155,4 @@ List of known issues to be addressed
 
 ### Inserting lines
 
-- Cannot insert lines after the last line (I$+1 maybe?)
+- Cannot insert lines after the last line - should be able to specify line number greater than the last line
