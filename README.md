@@ -1,6 +1,6 @@
 # Simon Edit
 
-Command line text editor build using C. Reads every line of a file into a doubly linked list for in memory editing. Saves to file as newline (`\n`) separated lines of text. (`P`)rint, (`M`)ove, (`D`)elete, and (`I`)nsert commands are available for editing. 
+Command line text editor build using C. Reads every line of a file into a doubly linked list for in memory editing. Saves to file as newline (`\n`) separated lines of text. (`P`)rint, (`G`)oto, (`C`)ount, (`M`)ove, (`D`)elete, and (`I`)nsert commands are available for editing. 
 
 ## Build
 
@@ -42,6 +42,7 @@ Available commands are:
 - `D` - Delete line
 - `I` - Insert lines, newline to end
 - `M` - Move line
+- `C` - Count lines
 - `W` - Save changes
 - `Q` - Quit (Will be prompted to save if there are changes)
 
