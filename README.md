@@ -102,6 +102,7 @@ cmd:  I      # Insert before active line
 ```bash
 cmd:  C      # Count the number of lines in the file (same as C^,$)
 cmd:  C.,$   # Count the number of lines from the current line to the last line (inclusive)
+cmd:  C1     # Count the number of characters on line 1
 ```
 
 #### Save changes

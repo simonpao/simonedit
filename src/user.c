@@ -215,29 +215,42 @@ extern int movelines(char *linespec, doubleList *pHead, doubleList *pCurrent)
 /**
  * Count the total number of lines:
  *    C^,$ - Count number of lines in the file
+ *    C.,$ - Count number of lines from active line to last line
+ *    C.,^ - Count number of lines from active line to first line
+ *    C1   - Count number of characters on line 1
  */
 extern int countLines(char *linespec, doubleList *pHead, doubleList *pCurrent)
 {
   doubleList startnode, endnode;
-  int count, rc;
+  int count, rc, spaces;
+  char tmp ;
+  char * str ;
+
+  if( emptyDoubleList(*pHead) ) {
+    printf("0 lines.\n") ;
+    return 0 ;
+  }
 
   rc = parseLinespec(linespec, *pHead, *pCurrent, &startnode, &endnode);
   if(rc) return rc;
 
-  if( emptyDoubleList(*pHead) ) 
-    {
-      printf("0 lines.\n") ;
-    } 
-  else 
-    {
-      count  = doubleNodeNumber( endnode   );
-      count -= doubleNodeNumber( startnode )-1;
+  count  = doubleNodeNumber( endnode   );
+  count -= doubleNodeNumber( startnode );
 
-      if(count == 1)
-        printf("1 line.\n") ;
-      else
-        printf("%d lines.\n", count);
+  count = abs(count) + 1 ; 
+
+  if(count == 1)
+    {
+      count = -1, spaces = 0 ;
+      str = (char *) DATA(startnode) ;
+      do { 
+        tmp = str[++count] ;
+        if(tmp == ' ') spaces++;
+      } while(tmp != '\0') ;
+      printf("%d characters (%d %s).\n", count-1, spaces, spaces == 1 ? "is a space" : "are spaces") ;
     }
+  else
+    printf("%d lines.\n", count);
 
   return 0;
 }
