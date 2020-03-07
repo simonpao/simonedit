@@ -218,7 +218,7 @@ extern doubleList nthRelativeDoubleNode(doubleList L, int n)
     }
   if(n < 0)
     {
-      for(i=n; PREV(L) != NULL && i>0; L = PREV(L)) i--;
+      for(i=n; PREV(L) != NULL && i<0; L = PREV(L)) i++;
       return L;
     }
 }

@@ -115,7 +115,7 @@ List of known issues to be addressed
 
 ### General
 
-- The minus (-) operator does not work for selecting relative lines
+- ~~The minus (-) operator does not work for selecting relative lines~~
     ```bash
     5, cmd: g4
     004:  i hope you like it
@@ -128,7 +128,7 @@ List of known issues to be addressed
 
 ### Printing lines
 
-- Printing backwards shows same data for all lines printed
+- ~~Printing backwards shows same data for all lines printed~~
     ```bash
     5, cmd: p$,^
     003:  line 3
