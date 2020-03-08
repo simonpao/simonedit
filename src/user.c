@@ -223,7 +223,9 @@ extern int movelines(char *linespec, doubleList *pHead, doubleList *pCurrent)
     }
 
   if(currentnumber >= startnumber && currentnumber <= endnumber)
-    return E_LINES;
+    return E_INCLUDE;
+  if(currentnumber == 1)
+    return E_BEFORE;
 
   cutList(pHead, &startnode, &endnode);
   pasteList(&PREV(*pCurrent), &startnode);

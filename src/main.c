@@ -19,14 +19,16 @@
 /**
  * Handles printing of errors, Indices of specific error message defined in globals.h
  *
- * E_IO       1
- * E_SPACE    2
- * E_LINES    3
- * E_BADCMD   4
- * E_DELETE   5
- * E_MOVE     6
- * E_FILE     7
- * E_OVERFLOW 8
+ * E_IO        1
+ * E_SPACE     2
+ * E_LINES     3
+ * E_BADCMD    4
+ * E_DELETE    5
+ * E_MOVE      6
+ * E_FILE      7
+ * E_OVERFLOW  8
+ * E_INCLUDE   9
+ * E_BEFORE   10
  */
 void printerror(int errnum)
 {
@@ -38,7 +40,9 @@ void printerror(int errnum)
     "An error occured while attempting to delete the specified lines.",
     "An error occured while attempting to move the specified lines.",
 	  "Requested file does not exist.",
-    "Specified line number is greater than the maximum line number in the file."
+    "Specified line number is greater than the maximum line number in the file.",
+    "Line number selection cannot include the active line.",
+    "Cannot move selection to before the beginning of the file."
   };
 
   if (errnum < 1 || errnum > MAXERROR)

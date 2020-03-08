@@ -15,15 +15,17 @@
 #ifndef _globals
 #define _globals
 
-#define E_IO       1
-#define E_SPACE    2
-#define E_LINES    3
-#define E_BADCMD   4
-#define E_DELETE   5
-#define E_MOVE     6
-#define E_FILE     7
-#define E_OVERFLOW 8
-#define MAXERROR   8
+#define E_IO        1
+#define E_SPACE     2
+#define E_LINES     3
+#define E_BADCMD    4
+#define E_DELETE    5
+#define E_MOVE      6
+#define E_FILE      7
+#define E_OVERFLOW  8
+#define E_INCLUDE   9
+#define E_BEFORE   10
+#define MAXERROR   10
 
 #define DATA( L ) (( L ) -> datapointer )
 #define NEXT( L ) (( L ) -> next )

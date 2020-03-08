@@ -135,16 +135,8 @@ List of known issues to be addressed
 
 ### Moving lines
 
-- Moving lines when first line is active deletes the moved line(s) and does not reset line numbers
-    ```bash
-    1, cmd: m3
-    2, cmd: p^,$
-    002:  line 1
-    003:  line 2
-    004:  line 4
-    005:  line 5
-    5, cmd:
-    ```
+- ~~Moving lines when first line is active deletes the moved line(s) and does not reset line numbers~~
+- Cannot move lines to before the first line in the file
 
 ### Deleting lines
 
