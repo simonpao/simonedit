@@ -167,4 +167,4 @@ List of known issues to be addressed
 
 ### Inserting lines
 
-- Cannot insert lines after the last line - should be able to specify line number greater than the last line
+- ~~Cannot insert lines after the last line - should be able to specify line number greater than the last line~~

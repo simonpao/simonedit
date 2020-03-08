@@ -83,13 +83,23 @@ extern int insertlines(char *linespec, doubleList *pHead, doubleList *pCurrent)
   else
     {
       parseerror = parseLinespec(linespec, *pHead, *pCurrent, &startnode, &endnode);
-
-      if(parseerror) return parseerror;
-      if(startnode != endnode) return E_LINES;
+      if(parseerror && parseerror != E_OVERFLOW) return parseerror;
+      if(startnode != endnode && parseerror != E_OVERFLOW) return E_LINES;
     }
-  initDoubleList(&newdata);
-  insertlinenumber = doubleNodeNumber(startnode);
-  if(insertlinenumber < 1) insertlinenumber = 1;
+  
+  // If line number specified is less than the maximum line
+  //    create a new list which will be inserted prior to the 
+  //    specified line
+  if(parseerror != E_OVERFLOW) 
+    {
+      initDoubleList(&newdata);
+      insertlinenumber = doubleNodeNumber(startnode);
+      if(insertlinenumber < 1) insertlinenumber = 1;
+    }
+  // If line number specified is greater than the maximum line
+  //    then new data will be appended to the end of the list
+  else insertlinenumber = doubleNodeNumber(nthDoubleNode(*pHead, -1)) + 1 ;
+
   fgets(buffer, BUFSIZ, stdin); // Read the initial newline and discard
   while (cmp != 0)
     {
@@ -98,12 +108,23 @@ extern int insertlines(char *linespec, doubleList *pHead, doubleList *pCurrent)
       cmp = strcmp(buffer, "\n");
       if(cmp != 0 && strlen(buffer) > 1)
         {
-          rc = stringDoubleAppend(&newdata, buffer);
+          // append to new list
+          if(parseerror != E_OVERFLOW) rc = stringDoubleAppend(&newdata, buffer);
+          // append to main list
+          else rc = stringDoubleAppend(pHead, buffer);
           if(rc == ERROR) return E_SPACE;
         }
-    } 
-  if(emptyDoubleList(newdata) == TRUE) return 0;
+    }
+  
+  if(parseerror == E_OVERFLOW)
+    *pCurrent = nthDoubleNode(*pHead, -1);
+  
+  // If no data was entered into a new list, 
+  //    or if data was appended to the main list
+  //    return here because nothing else needs to be done
+  if(emptyDoubleList(newdata) == TRUE || parseerror == E_OVERFLOW) return 0;
 
+  // Insert the new list into the main list
   if(startnode == NULL)
     {
       *pHead = newdata;
