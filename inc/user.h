@@ -30,6 +30,6 @@ extern int movelines(char *linespec, doubleList *pHead, doubleList *pCurrent);
 extern int countLines(char *linespec, doubleList *pHead, doubleList *pCurrent);
 extern int gotoLine(char *linespec, doubleList *pHead, doubleList *pCurrent);
 extern int printlines(char *linespec, doubleList *pHead, doubleList *pCurrent);
-char * formatLineNumber(int number);
+char * formatLineNumber(int number, doubleList list);
 
 #endif

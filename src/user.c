@@ -102,7 +102,7 @@ extern int insertlines(char *linespec, doubleList *pHead, doubleList *pCurrent)
 
   while (cmp != 0)
     {
-      printf("%s> ", formatLineNumber(insertlinenumber++));
+      printf("%s> ", formatLineNumber(insertlinenumber++,*pHead));
       fgets(buffer, BUFSIZ, stdin);
       cmp = strcmp(buffer, "\n");
       if(cmp != 0 && strlen(buffer) > 1)
@@ -295,7 +295,7 @@ extern int gotoLine(char *linespec, doubleList *pHead, doubleList *pCurrent)
   if(rc) return rc;
 
   startnumber = doubleNodeNumber(startnode);
-  printf("%s:  %s", formatLineNumber(startnumber), (char *) DATA(startnode));
+  printf("%s:  %s", formatLineNumber(startnumber,*pHead), (char *) DATA(startnode));
   *pCurrent = startnode;
   return 0;
 }
@@ -329,7 +329,7 @@ extern int printlines(char *linespec, doubleList *pHead, doubleList *pCurrent)
   count = (endnumber - startnumber) *direction + 1;
   while(count-- > 0)
     {
-      printf("%s: %s", formatLineNumber(startnumber), (char *) DATA(startnode));
+      printf("%s: %s", formatLineNumber(startnumber,*pHead), (char *) DATA(startnode));
       startnumber += direction;
       startnode = nthRelativeDoubleNode(startnode, direction);
     }
@@ -338,23 +338,21 @@ extern int printlines(char *linespec, doubleList *pHead, doubleList *pCurrent)
 }
 
 /**
- * Format the line numbers to three digits
- * 1   = 001
- * 10  = 010
- * 100 = 100
+ * Format the line numbers with padded zeros up to the order of magnitude 
+ *    of the length of the provided list
+ * 
+ * ex. if list length is 123:
+ *    1   = 001
+ *    10  = 010
+ *    100 = 100
  */
-char * formatLineNumber(int number)
+char * formatLineNumber(int number, doubleList list)
 {
     char *buf = malloc(5);
+    int maxLine = doubleLength(list), zeros = 1 ;
 
-    if( number < 10 ) {
-        snprintf(buf, 5, "00%d", number);
-        return buf ;
-    }
-    if( number < 100 ) {
-        snprintf(buf, 5, "0%d", number);
-        return buf ;
-    }
-    snprintf(buf, 5, "%d", number);
+    for( ; maxLine >= 10; maxLine /= 10 ) zeros++ ;
+
+    snprintf(buf, 5, "%0*d", zeros, number);
     return buf ;
 }
