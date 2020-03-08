@@ -268,7 +268,7 @@ extern int countLines(char *linespec, doubleList *pHead, doubleList *pCurrent)
         tmp = str[++count] ;
         if(tmp == ' ') spaces++;
       } while(tmp != '\0') ;
-      printf("%d characters (%d %s).\n", count-1, spaces, spaces == 1 ? "is a space" : "are spaces") ;
+      printf("%d %s (%d %s).\n", count-1, count-1 == 1 ? "character" : "characters", spaces, spaces == 1 ? "is a space" : "are spaces") ;
     }
   else
     printf("%d lines.\n", count);
