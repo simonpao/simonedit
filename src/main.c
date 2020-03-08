@@ -49,6 +49,13 @@ void printerror(int errnum)
   printf("%s\n", errmsg[errnum-1]);
 }
 
+void trimInput(char * input) {
+  int i = 0;
+  while(input[i] != '\0')
+    if(input[i] == ' ' || input[i] == '\n')
+      memmove(&input[i], &input[i + 1], strlen(input) - i);
+    else i++;
+}
 
 int main(int argc, char *argv[])
 {
@@ -97,7 +104,8 @@ int main(int argc, char *argv[])
   while (exitFlag == FALSE)
     {
       printf("%d, cmd: ", emptyDoubleList( linelist ) ? 0 : doubleNodeNumber( currentline ));
-      scanf("%s", buffer);
+      fgets(buffer, BUFSIZ, stdin);
+      trimInput(buffer);
       switch(toupper(buffer[0]))
         {
         case '\n':

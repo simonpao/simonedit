@@ -100,7 +100,6 @@ extern int insertlines(char *linespec, doubleList *pHead, doubleList *pCurrent)
   //    then new data will be appended to the end of the list
   else insertlinenumber = doubleNodeNumber(nthDoubleNode(*pHead, -1)) + 1 ;
 
-  fgets(buffer, BUFSIZ, stdin); // Read the initial newline and discard
   while (cmp != 0)
     {
       printf("%s> ", formatLineNumber(insertlinenumber++));
