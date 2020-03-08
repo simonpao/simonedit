@@ -64,6 +64,42 @@ extern status writeline(char *s)
 }
 
 /**
+ * Append text to the end of a line
+ *    A1 - Append text to the end of line 1
+ *    A  - Append text to the end of active line
+ */
+extern int appendtoline(char *linespec, doubleList *pHead, doubleList *pCurrent)
+{
+  doubleList startnode, endnode;
+  int i, parseerror, appendlinenumber;
+  char buffer[BUFSIZ];
+  char * existingData;
+
+  if( emptyDoubleList(*pHead) ) {
+    printf("File is empty.\n") ;
+    return 0;
+  }
+
+  parseerror = parseLinespec(linespec, *pHead, *pCurrent, &startnode, &endnode);
+  if(parseerror) return parseerror;
+  if(startnode != endnode) return E_LINES;
+
+  appendlinenumber = doubleNodeNumber(startnode);
+  existingData = DATA(startnode);
+  // Need to remove the newline from the existing data 
+  for( i=0; existingData[i] != '\0'; i++ ) 
+    if( existingData[i] == '\n' )
+      memmove(&existingData[i], &existingData[i + 1], strlen(existingData) - i);
+
+  // Print the existing data and then request user input after it
+  printf("%s> %s", formatLineNumber(appendlinenumber,*pHead), existingData);
+  fgets(buffer, BUFSIZ, stdin);
+  strcat(existingData, buffer) ; // append new data to existing data
+  DATA(startnode) = existingData ; // assign this new string data to the node
+  return 0;
+}
+
+/**
  * Insert line(s)
  *    I1 - Insert before line 1
  *    I  - Insert before active line

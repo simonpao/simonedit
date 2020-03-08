@@ -97,6 +97,13 @@ cmd:  I1     # Insert before line 1
 cmd:  I      # Insert before active line
 ```
 
+#### Append to line
+
+```bash
+cmd:  A1     # Append text to the end of line 1
+cmd:  A      # Append text to the end of active line
+```
+
 #### Count lines
 
 ```bash

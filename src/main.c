@@ -112,7 +112,11 @@ int main(int argc, char *argv[])
       trimInput(buffer);
       switch(toupper(buffer[0]))
         {
-        case '\n':
+        case '\0':
+          break;
+        case 'A':
+          rc = appendtoline(&buffer[1], &linelist, &currentline);
+          if(rc) printerror(rc);
           break;
         case 'C':
           if( buffer[1] == '\0' ) strcat( buffer, "^,$" ) ; // Default for command is to count all lines
