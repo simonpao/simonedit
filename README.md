@@ -152,12 +152,7 @@ List of known issues to be addressed
 - ~~Deleting last line (which loops active line to line 1) and then printing from current line results in segmentation fault~~
 - ~~Deleting all lines does not change the active line~~
 - ~~Deleting the last line remaining in the file results in error~~
-- Deleting last line then printing current line does not print the line content
-    ```bash
-    5, cmd: d.
-    1, cmd: p.
-    001:  1, cmd:
-    ```
+- ~~Deleting last line then printing current line does not print the line content~~
 
 ### Inserting lines
 

@@ -177,12 +177,10 @@ extern int deletelines(char *linespec, doubleList *pHead, doubleList *pCurrent)
       startnode = endnode;
       endnode = tmplist;
     }
-  newCurrent = nthRelativeDoubleNode(endnode, 1);
-  if(newCurrent == NULL)
-    newCurrent = nthRelativeDoubleNode(startnode, -1);
 
   cutList(pHead, &startnode, &endnode);
-  *pCurrent = newCurrent;
+  if( !emptyDoubleList( *pHead ) )
+    *pCurrent = nthDoubleNode( *pHead, endnumber = startnumber ? startnumber-1 :endnumber-startnumber-1 );
   destroyDoubleList(&startnode, free);
   return 0;
 }
