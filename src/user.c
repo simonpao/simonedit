@@ -330,7 +330,7 @@ extern int printlines(char *linespec, doubleList *pHead, doubleList *pCurrent)
   count = (endnumber - startnumber) *direction + 1;
   while(count-- > 0)
     {
-      printf("%s:  %s", formatLineNumber(startnumber), (char *) DATA(startnode));
+      printf("%s: %s", formatLineNumber(startnumber), (char *) DATA(startnode));
       startnumber += direction;
       startnode = nthRelativeDoubleNode(startnode, direction);
     }

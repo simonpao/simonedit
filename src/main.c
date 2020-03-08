@@ -96,7 +96,7 @@ int main(int argc, char *argv[])
   exitFlag = FALSE;
   while (exitFlag == FALSE)
     {
-      printf("%d, cmd: ", doubleNodeNumber( currentline ));
+      printf("%d, cmd: ", emptyDoubleList( linelist ) ? 0 : doubleNodeNumber( currentline ));
       scanf("%s", buffer);
       switch(toupper(buffer[0]))
         {

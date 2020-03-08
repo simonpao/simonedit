@@ -150,13 +150,7 @@ List of known issues to be addressed
 
 - ~~Deleting all lines and then printing results in segmentation fault~~
 - ~~Deleting last line (which loops active line to line 1) and then printing from current line results in segmentation fault~~
-- Deleting all lines does not change the active line
-    ```bash
-    5, cmd: d^,$
-    5, cmd: p
-    File is empty.
-    5, cmd: 
-    ```
+- ~~Deleting all lines does not change the active line~~
 - ~~Deleting the last line remaining in the file results in error~~
 - Deleting last line then printing current line does not print the line content
     ```bash
