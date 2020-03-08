@@ -34,7 +34,7 @@ void printerror(int errnum)
     "An error occured while attempting to write to the file.",
     "The computer is too low on resources to continue.",
     "Invalid line number specified. Identify lines using 0-9, '^', '$', or '.'.",
-    "Invalid command. Valid commands are P, G, C, D, I, M, W, and Q.",
+    "Invalid command. Valid commands are (P)rint, (G)oto, (C)ount, (D)elete, (I)nsert, (M)ove, (W)rite, and (Q)uit.",
     "An error occured while attempting to delete the specified lines.",
     "An error occured while attempting to move the specified lines.",
 	  "Requested file does not exist.",
@@ -116,6 +116,7 @@ int main(int argc, char *argv[])
           if(rc) printerror(rc);
           break;
         case 'G':
+          if( buffer[1] == '\0' ) strcat( buffer, "^" ) ; // Default for command is to goto first line
           rc = gotoLine(&buffer[1], &linelist, &currentline);
           if(rc) printerror(rc);
           break;
