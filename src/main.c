@@ -117,6 +117,7 @@ int main(int argc, char *argv[])
         case 'A':
           rc = appendtoline(&buffer[1], &linelist, &currentline);
           if(rc) printerror(rc);
+          else fileEdited = TRUE;
           break;
         case 'C':
           if( buffer[1] == '\0' ) strcat( buffer, "^,$" ) ; // Default for command is to count all lines
