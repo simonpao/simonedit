@@ -64,6 +64,41 @@ extern status writeline(char *s)
 }
 
 /**
+ * Replace the text of a line
+ *    R1 - Replace the text of line 1
+ *    R  - Replace the text of active line
+ */
+extern int replaceline(char *linespec, doubleList *pHead, doubleList *pCurrent)
+{
+  doubleList startnode, endnode;
+  int i, parseerror, replacelinenumber;
+  char buffer[BUFSIZ];
+  char * string;
+
+  if( emptyDoubleList(*pHead) ) {
+    printf("File is empty.\n") ;
+    return 0;
+  }
+
+  parseerror = parseLinespec(linespec, *pHead, *pCurrent, &startnode, &endnode);
+  if(parseerror) return parseerror;
+  if(startnode != endnode) return E_LINES;
+
+  replacelinenumber = doubleNodeNumber(startnode);
+
+  // Print the existing data and then request user input after it
+  printf("%s> ", formatLineNumber(replacelinenumber,*pHead));
+  fgets(buffer, BUFSIZ, stdin);
+
+  // Allocate new memory space to hold this new string
+  string = (char *) malloc ((strlen(buffer)+1) * sizeof(char));
+  strcpy( string, buffer );
+
+  DATA(startnode) = string ; // assign this new string data to the node
+  return 0;
+}
+
+/**
  * Append text to the end of a line
  *    A1 - Append text to the end of line 1
  *    A  - Append text to the end of active line

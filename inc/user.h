@@ -24,6 +24,7 @@
 extern int readfile(char *filename, doubleList *pL);
 extern int writefile(char *filename, doubleList *pL);
 extern status writeline(char *s);
+extern int replaceline(char *linespec, doubleList *pHead, doubleList *pCurrent);
 extern int appendtoline(char *linespec, doubleList *pHead, doubleList *pCurrent);
 extern int insertlines(char *linespec, doubleList *pHead, doubleList *pCurrent);
 extern int deletelines(char *linespec, doubleList *pHead, doubleList *pCurrent);

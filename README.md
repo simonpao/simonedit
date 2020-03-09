@@ -104,6 +104,13 @@ cmd:  A1     # Append text to the end of line 1
 cmd:  A      # Append text to the end of active line
 ```
 
+#### Replace line
+
+```bash
+cmd:  R1     # Replace the text of line 1
+cmd:  R      # Replace the text of active line
+```
+
 #### Count lines
 
 ```bash
