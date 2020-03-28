@@ -39,7 +39,7 @@ void printerror(int errnum)
     "Invalid command. Valid commands are (P)rint, (G)oto, (C)ount, (D)elete, (I)nsert, (A)ppend, (R)eplace, (M)ove, (W)rite, and (Q)uit.",
     "An error occured while attempting to delete the specified lines.",
     "An error occured while attempting to move the specified lines.",
-	  "Requested file does not exist.",
+    "Requested file does not exist.",
     "Specified line number is greater than the maximum line number in the file.",
     "Line number selection cannot include the active line.",
     "Cannot move selection to before the beginning of the file."
@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
   exitFlag = FALSE;
   while (exitFlag == FALSE)
     {
-      printf("%d, cmd: ", emptyDoubleList( linelist ) ? 0 : doubleNodeNumber( currentline ));
+      printf("%s:%d$ ", filename, emptyDoubleList( linelist ) ? 0 : doubleNodeNumber( currentline ));
       fgets(buffer, BUFSIZ, stdin);
       trimInput(buffer);
       switch(toupper(buffer[0]))
@@ -155,18 +155,33 @@ int main(int argc, char *argv[])
           else fileEdited = TRUE;
           break;
         case 'W':
-		      if(buffer[1] != '\0') { 
+          if(buffer[1] != '\0') {
             strcpy(filename, &buffer[1]); 
-            // Determine if ".simon" should be added to end of filename
-            char * testLoc = strrchr(filename, '.') ;
-            if( testLoc ) {
-              if(strcmp(".simon", testLoc) != 0) {
-                strcat(filename, ".simon");
-              }
-            } else {
+          }
+
+          if(strcmp("new", filename) == 0) {
+            printf("Enter the filename to save as: ");
+            fgets(buffer, BUFSIZ, stdin);
+            trimInput(buffer);
+            if(buffer[0] == '\0') {
+              printerror(E_IO);
+              break ;
+            }
+            strcpy(filename, &buffer[0]); 
+          }
+
+          // Determine if ".simon" should be added to end of filename
+          char * testLoc = strrchr(filename, '.') ;
+          if( testLoc ) {
+            if(strcmp(".simon", testLoc) != 0) {
               strcat(filename, ".simon");
             }
+          } else {
+            strcat(filename, ".simon");
           }
+
+          printf("Saving as %s; ", filename);
+          
           rc = writefile(filename, &linelist);
           if(rc != 0) printerror(rc);
           else {
