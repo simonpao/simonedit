@@ -75,7 +75,8 @@ int main(int argc, char *argv[])
   //    otherwise, prompt user for filename
   if( argc == 1 ) {
     printf("Enter the name of the file to edit, or 'new': ");
-    scanf("%s", filename);
+    fgets(filename, BUFSIZ, stdin);
+    trimInput(filename);
   } else {
     strcpy( filename, argv[1] ) ;
   }
